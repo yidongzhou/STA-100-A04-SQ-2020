@@ -5,26 +5,92 @@ date: "04/06/2020"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+## Discussion Sessions and Office Hours
+
+Discussion session: Tuesdays, 11:00-11:50 am PT
+
+Join URL: https://ucdstats.zoom.us/j/571418848?pwd=Tlkxbmlvc3BTQ0JNQnhEWGNBaXRMZz09
+
+Office hours: Thursdays 10:00-11:00 am PT
+
+Join URL: https://ucdstats.zoom.us/j/228723566?pwd=dUcyTWtZN0ZEeEJ0S2xqcTdLbDZqUT09
+
+## Review
+
+- Installation of R and RStudio: https://www.datacamp.com/community/tutorials/installing-R-windows-mac-ubuntu
+- Introduction to RStudio, including file creation, panel struture.
+- R basics, including varaible creation, arithmetic calculation, vectors, and some basic functions: `help()`, `?`, `rep`, `seq`.
+
+## Data Manipulation
+
+We will learn how to perform data manipulation in R programming language along with data processing. We will also overview the three operators such as subsetting, manipulation as well as sorting in R. Also, we will learn about data structures in R, how to create subsets in R and usage of R `sample()` command, ways to visualize data in R.
+
+With the help of data structures, we can represent data in the form of data analytics. Data Manipulation in R can be carried out for further analysis and visualisation. The first step is to figure out how to import data in R.
+
+`Environment` panel --> `Import Dataset` --> `From Text(readr)...` --> `browse` --> `Import`
+
+Secondly, you need to be familiar with basic **data structures** in R (`class` function):
+
+- `Vectors`: ordered containers of primitive elements and are used for 1-dimensional data.
+- `Matrices`: rectangular collections of elements and are useful when all data is of a single class that is numeric or characters.
+- `Lists`: ordered containers for arbitrary elements and are used for higher dimension data, like customer data information of an organization. When data cannot be represented as an array or a data frame, the list is the best choice. This is because lists can contain all kinds of other objects, including other lists or data frames, and in that sense, they are very flexible.
+- `Data Frames`: two-dimensional containers for records and variables and are used for representing data from spreadsheets etc. It is similar to a single table in the database.
+
+(**data types**: integer, numeric, logical, character, complex.)
+
+### subset data
+
+The process of creating samples is called subsetting. Different methods of subsetting in R are:
+
+- `$`: The dollar sign operator selects a single element of data. The result of this operator is always a vector when we use it with a `data frame`.
+- `[[`: Similar to `$` in R, the double square brackets operator in R also returns a single element, but it offers the flexibility of referring to the elements by position rather than by name. It can be used for data frames and lists.
+- `[`: The single square bracket operator in R returns multiple elements of data. The index within the square brackets can be a numeric vector, a logical vector, or a character vector.
+
+For example: To retrieve 5 rows and all columns of already built-in dataset `mtcars`, the below command, is used:
+
+```{r}
+data(mtcars)
+mtcars$mpg# column called mpg
+mtcars[[1]]# first column
+mtcars[1:5, ]# first five rows
+mtcars[mtcars$cyl==8, ]# rows with 8 cylinders
 ```
 
-## R Markdown
+#### `sample()` command in R
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+For example, to create a sample of 10 simulations of a die, below command is used:
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r}
+sample(1:6, 10, replace=TRUE)
 ```
 
-## Including Plots
+### draw histograms
 
-You can also embed plots, for example:
+Histogram can be created using the `hist()` function in R programming language. This function takes in a vector of values for which the histogram is plotted.
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+hist(mtcars[mtcars$cyl==8, ]$mpg, main='Histogram for mpgs of cars with 8 cylinders', xlab='mpg')
+hist(mtcars[mtcars$cyl==6, ]$mpg, main='Histogram for mpgs of cars with 6 cylinders', xlab='mpg')
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+### compute means and medians
+
+```{r}
+mean(mtcars[mtcars$cyl==8, ]$mpg)
+mean(mtcars[mtcars$cyl==6, ]$mpg)
+median(mtcars[mtcars$cyl==8, ]$mpg)
+median(mtcars[mtcars$cyl==6, ]$mpg)
+```
+
+### draw mosaic plots
+
+The Mosaic Plot in R Programming is very useful to visualize the data from the contingency table or two-way frequency table. The R Mosaic Plot draws a rectangle, and its height represents the proportional value.
+
+```{r}
+table(mtcars$am, mtcars$cyl)# contingency table or two-way frequency table
+mosaicplot(mtcars$am~mtcars$cyl, main='Mosaic plot', xlab='transmission', ylab='cylinders')
+```
+
+## Code Appendix
+```{r, ref.label=knitr::all_labels(),echo=TRUE,eval=FALSE}
+```
