@@ -15,3 +15,8 @@ Also, the following online learning resources are very handy and helpful.
 - Blog: https://www.r-bloggers.com/
 
 Larning a new programming language is challenging, but also fulfilling. You are not required to remember all the commands in R, but some basic ones. Finally, Google is a perfect learning assistant. Try to make the best use of it.
+
+# Discussion Recordings
+
+1. 03/31: https://ucdstats.zoom.us/rec/play/7MAvIr_7r2k3HtzA4QSDBad5W9TsKqms1XIX-vJeyE_nAXcLYQD1YLpBM-JWeqJRZs7Wn0Psr3j56zr7
+2. 04/07: https://ucdstats.zoom.us/rec/play/6Zx_Jr2vrDI3EtGctASDAfR4W47rKKOshiQZr_JZnUa9VXFSY1L0Y7FHYefShJvonUqOs1w_CMnQvlLu
