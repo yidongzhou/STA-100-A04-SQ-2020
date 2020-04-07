@@ -1,8 +1,10 @@
 ---
-title: "Discussion 2"
+title: "STA 100 A04 SQ 2020 Discussion 2"
 author: "Yidong Zhou"
 date: "04/06/2020"
-output: html_document
+output:
+  html_document: default
+  pdf_document: default
 ---
 
 ## Discussion Sessions and Office Hours
