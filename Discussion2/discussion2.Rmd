@@ -82,6 +82,9 @@ mean(mtcars[mtcars$cyl==8, ]$mpg)
 mean(mtcars[mtcars$cyl==6, ]$mpg)
 median(mtcars[mtcars$cyl==8, ]$mpg)
 median(mtcars[mtcars$cyl==6, ]$mpg)
+var(mtcars[mtcars$cyl==8, ]$mpg)
+sd(mtcars[mtcars$cyl==8, ]$mpg)
+summary(mtcars)
 ```
 
 ### draw mosaic plots
