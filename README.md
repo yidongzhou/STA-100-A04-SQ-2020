@@ -11,7 +11,7 @@ If you want to have a deeper understanding about R programming, the following re
 Also, the following online learning resources are very handy and helpful.
 
 - Online learning website: [DataCamp](https://www.datacamp.com/)
-- Youtube video tutorial； https://youtu.be/_V8eKsto3Ug
+- Youtube video tutorial: https://youtu.be/_V8eKsto3Ug
 - Blog: https://www.r-bloggers.com/
 
 Larning a new programming language is challenging, but also fulfilling. You are not required to remember all the commands in R, but some basic ones. Finally, Google is a perfect learning assistant. Try to make the best use of it.
