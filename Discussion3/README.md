@@ -1,3 +1,8 @@
+# How to generate PDF from R Markdown?
+
+- Prerequisite: https://bookdown.org/yihui/rmarkdown/installation.html#installation
+- Further reading: https://bookdown.org/yihui/rmarkdown/pdf-document.html
+
 # How to display HTML files in your Browser from GitHub?
 
 <mark>**NOTE**: `R-Markdown-Tutorial.html` should be easier to read than `R-Markdown-Tutorial.pdf`.</mark>
