@@ -1,0 +1,116 @@
+---
+title: Lab Assignment 1
+author: STA 100 | A. Farris | Spring 2020
+abstract: \emph{A pdf copy of your assignment is due at the end of the day (11:59pm PT) Monday, April 20. Submission of the pdf will be through Canvas. Please put in the effort to make it look reasonably professional -- you're encouraged to use R Markdown. Note that specific tasks for you are \hl{highlighted}.}
+header-includes:
+   - \usepackage{enumerate,verbatim,graphicx,soul}
+   - \renewcommand{\abstractname}{}
+geometry: margin=0.75in
+output: pdf_document
+---
+
+\subsection*{Introduction to the Evans data}
+In this assignment, we will investigate the results of an epidemiological cohort study in which 609 subjects were followed for 7 years, with coronary heart disease as the outcome of interest. We begin by obtaining the data:
+
+```{r}
+vars <- c("ID","CHD","CAT","AGE","CHL","SMK","ECG","DBP","SBP","HPT","CH","CC")
+evans <- read.table("http://www.stat.ucdavis.edu/~affarris/evans.dat",
+                    header=FALSE,
+                    col.names=vars)
+```
+
+This data contains much information about the subjects:
+
+| Variable | Description |
+| -------- | ----------- |
+|ID | Subject ID, one observation per subject |
+|CHD | Coronary heart disease (1) or not (0)|
+|CAT | High catecholamine level (1) or not (0)|
+|AGE | Age in years|
+|CHL | Cholesterol level|
+|SMK | Ever smoked (1) or never smoked (0)|
+|ECG | ECG abnormality (1) or not (0)|
+|DBP | Diastolic blood pressure|
+|SBP | Systolic blood pressure|
+|HPT | = 1 if DBP $\ge 90$ or SBP $\ge 160$, otherwise = 0|
+|CH | CAT*HPT|
+|CC | CAT*CHL|
+
+We can see what the first six subjects look like using the \verb+head+ function:
+```{r,comment=NA}
+head(evans)
+```
+We can easily obtain simple summary statistics, for example using \verb+mean+ and \verb+sd+:
+```{r,comment=NA}
+mean(evans$AGE)
+sd(evans$AGE)
+```
+We can get the five-number summary (along with the mean) using \verb+summary+:
+```{r,comment=NA}
+summary(evans$AGE)
+```
+
+It is tempting to think, because the mean is greater than the median, that the distribution of ages in this study might be right skewed. We can check this using a histogram :
+```{r,comment=NA}
+hist(evans$AGE)
+```
+
+Let's investigate the relationship between coronary heart disease and catecholamine level in the subjects. Because both are recorded as categorical data, we can use a table with the frequency distribution (contingency table): 
+```{r,comment=NA}
+CatChdTable <- table("High catecholamine level"=evans$CAT,
+                 "Coronary heart disease"=evans$CHD)
+CatChdTable
+```
+
+and a corresponding mosaic plot:
+
+```{r}
+mosaicplot(CatChdTable,
+           main="Mosaic plot of CAT vs. CHD")
+```
+
+From these we can see that a disproportionate number of the subjects with high catecholamine levels also had coronary heart disease.
+
+Let's investigate further. If we factor in cholesterol levels as well, what can we say? Since cholesterol is a quantitative variable, while CAT and CHD are both categorical (grouping) variables, we could use aligned boxplots:
+
+```{r}
+boxplot(CHL~CHD+CAT,
+        data=evans,
+        xlab="CHD.CAT")
+```
+
+We can compare the cholesterol level distributions for these groups in terms of center, spread, and shape, in decreasing order of importance. The groups with CHD=0 and CAT=0, and with CHD=1 and CAT=0 (respectively marked as 0.0 and 1.0) appear not to differ much in terms of center. Those with CHD=0 and CAT=1 have relatively lower center, though, and those with CHD=1 and CAT=1 have higher center. Furthermore, the group with CHD=0 and CAT=0 seem to have higher spread among their cholesterol levels, while the other three groups' spreads seem similar. We can further quantify these using means
+```{r,comment=NA}
+aggregate(CHL~CHD+CAT,data=evans,mean)
+```
+and (sample) standard deviations
+```{r,comment=NA}
+aggregate(CHL~CHD+CAT,data=evans,sd)
+```
+. Notice that the standard deviations show more variation between spreads in the latter three groups than is apparent in the boxplots. The standard deviations for the  CHD=0 and CAT=0 and  CHD=1 and CAT=0 groups are closer than the spreads appear in the boxplots, which may be due to the presence of a single, very extreme value in the latter group that is visible in the boxplot (remember that SDs, like means, are attracted to extreme values).
+
+If we need to, we can look at the shapes of the distributions for each group using histograms. For example, for the group with CHD=0 and CAT=0, we see a distribution that is roughly bell shaped, with a slight skew in the direction of higher cholesterol levels:
+
+```{r}
+hist(evans$CHL[evans$CHD==0 & evans$CAT==0], 
+     xlab = "CHL", ylab = "Frequency", main = "Histogram for CHL by CHD and CAT")
+```
+
+
+
+The differences in centers of the distributions of cholesterol between these groups is the most clearly interpretable result here, with which we can summarize the relationship between catecholamine level, cholesterol levels, and coronary heart disease. We can interpret these differences to tell us that subjects with low catecholamine levels have similar average levels of cholesterol whether they have coronary heart disease or not. However, subjects with high catecholamine levels have seemingly higher levels of cholesterol on average when they have coronary heart disease than when they do not.
+
+\subsection*{Assignment}
+
+\hl{Investigate the relationship between coronary heart disease and smoking. Use a contingency table and mosaic plot to do so.
+
+Also, investigate the relationship between coronary heart disease, smoking, and age. How do the distributions of age differ between the four groups obtained by heart disease and smoking status? Use aligned boxplots, means, standard deviations, and if necessary, histograms to compare these. What do these tell you about the relationship between smoking and coronary heart disease?}
+
+\hrulefill
+\clearpage
+
+\subsection*{Appendix: R Script}
+
+```{r, ref.label=knitr::all_labels(),echo=TRUE,eval=FALSE}
+```
+
