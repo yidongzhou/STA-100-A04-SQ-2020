@@ -1641,7 +1641,7 @@ summary {
 
 <div id="introduction-to-random-sampling-with-sequencing" class="section level2">
 <h2>Introduction to random sampling with sequencing</h2>
-<p>In this lab, we will briefly explore random sampling in the genomic context. In doing so we will simulate a hypothetical genetic test, and estimate its (laboratory) specificity.</p>
+<p>In this lab, we will briefly explore random sampling in the genomic context. In doing so we will simulate a hypothetical genetic test, and estimate its (laboratory) sensitivity.</p>
 </div>
 <div id="a-simple-test" class="section level2">
 <h2>A simple test</h2>
@@ -1671,16 +1671,16 @@ results &lt;- table(repl1000)
 results</code></pre>
 <pre><code>repl1000
   -   + 
-109 891 </code></pre>
-<p>So we would estimate that the test has a specificity of about <span class="math inline">\(\frac{ 891 }{ 109 + 891 } \approx 0.89\)</span>. So, if the sample actually consists of the sequence that we started with, we would estimate this to be the probability with which we get a positive test result.</p>
-<p>In order to be clear, though, we should really call this the <em>laboratory</em> specificity, because it takes into account only uncertainty associated with the way that we are sequencing: we are not taking into account additional uncertainties that might arise in the clinical setting.</p>
+103 897 </code></pre>
+<p>So we would estimate that the test has a sensitivity of about <span class="math inline">\(\frac{ 897 }{ 103 + 897 } \approx 0.9\)</span>. So, if the sample actually consists of the sequence that we started with, we would estimate this to be the probability with which we get a positive test result.</p>
+<p>In order to be clear, though, we should really call this the <em>laboratory</em> sensitivity, because it takes into account only uncertainty associated with the way that we are sequencing: we are not taking into account additional uncertainties that might arise in the clinical setting.</p>
 <p>Finally, we could increase the accuracy of this estimate by using more than 1000 replications, at the cost of more computing time.</p>
 </div>
 <div id="a-test-for-covid-19" class="section level2">
 <h2>A test for COVID-19</h2>
 <p>Let’s read into memory the reference genome<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> for the virus causing COVID-19:</p>
 <pre class="r"><code>SeqLines &lt;- readLines(&quot;http://www.stat.ucdavis.edu/~affarris/CovidRef.txt&quot;)
-CovSequence &lt;- paste(SeqLines[-1], collapse=&quot;&quot;) # [-1] remove the first line of SeqLines</code></pre>
+CovSequence &lt;- paste(SeqLines[-1], collapse=&quot;&quot;)# [-1] removes the first line of SeqLines</code></pre>
 <p>This leaves us with the object  in R, which is a character string identifying the nucleotides in the virus’ genome. We can find out how many nucleotides are recorded using :</p>
 <pre class="r"><code>nchar(CovSequence)</code></pre>
 <pre><code>[1] 29903</code></pre>
@@ -1698,10 +1698,10 @@ results &lt;- table(repl1000)
 results</code></pre>
 <pre><code>repl1000
   -   + 
-304 696 </code></pre>
-<p>We would estimate that this test has a specificity of about <span class="math inline">\(\frac{ 696 }{ 304 + 696 } \approx 0.7\)</span>.</p>
-<p>If we were to increase the number of reads in the test from twelve, we could obtain a test with higher specificity. What would happen if we used a different reference subsequence?</p>
-<p>{Estimate the specificity of a test for COVID-19 that uses as its reference subsequence the subsequence from nucleotide 27894 to 28259 of the genome.}<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> {Use test sequences (reads) of length 3000, and for each test, use 12 random reads. Also use 1000 replications of the test, as before.}</p>
+315 685 </code></pre>
+<p>We would estimate that this test has a sensitivity of about <span class="math inline">\(\frac{ 685 }{ 315 + 685 } \approx 0.68\)</span>.</p>
+<p>If we were to increase the number of reads in the test from twelve, we could obtain a test with higher sensitivity. What would happen if we used a different reference subsequence?</p>
+<p>{Estimate the sensitivity of a test for COVID-19 that uses as its reference subsequence the subsequence from nucleotide 27894 to 28259 of the genome.}<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> {Use test sequences (reads) of length 3000, and for each test, use 12 random reads. Also use 1000 replications of the test, as before.}</p>
 
 
 <pre class="r"><code>CheckOnce &lt;- function(FullSequence,TestRef,readLength){
@@ -1722,7 +1722,7 @@ repl1000 &lt;- replicate(1000,Test(&quot;AGCGATTGAGTATGGATTTCAA&quot;,&quot;GATT
 results &lt;- table(repl1000)
 results
 SeqLines &lt;- readLines(&quot;http://www.stat.ucdavis.edu/~affarris/CovidRef.txt&quot;)
-CovSequence &lt;- paste(SeqLines[-1], collapse=&quot;&quot;) # [-1] remove the first line of SeqLines
+CovSequence &lt;- paste(SeqLines[-1], collapse=&quot;&quot;)# [-1] removes the first line of SeqLines
 nchar(CovSequence)
 substr(CovSequence,1,50)
 substr(CovSequence,20000,20030)

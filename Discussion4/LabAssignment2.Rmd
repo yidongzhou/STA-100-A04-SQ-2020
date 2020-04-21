@@ -5,7 +5,6 @@ geometry: margin=0.75in
 output:
   html_document:
     df_print: paged
-  pdf_document: default
 header-includes:
 - \usepackage{enumerate,verbatim,graphicx,soul}
 - \renewcommand{\abstractname}{}
@@ -18,7 +17,7 @@ abstract: \emph{A pdf copy of your assignment is due at the end of the day (11:5
 
 ## Introduction to random sampling with sequencing
 
-In this lab, we will briefly explore random sampling in the genomic context. In doing so we will simulate a hypothetical genetic test, and estimate its (laboratory) specificity.
+In this lab, we will briefly explore random sampling in the genomic context. In doing so we will simulate a hypothetical genetic test, and estimate its (laboratory) sensitivity.
 
 ## A simple test
 
@@ -58,9 +57,9 @@ results <- table(repl1000)
 results
 ```
 
-So we would estimate that the test has a specificity of about $\frac{ `r results[2]` }{  `r results[1]` + `r results[2]` } \approx `r round(results[2]/(results[1] + results[2]),2)`$. So, if the sample actually consists of the sequence that we started with, we would estimate this to be the probability with which we get a positive test result.
+So we would estimate that the test has a sensitivity of about $\frac{ `r results[2]` }{  `r results[1]` + `r results[2]` } \approx `r round(results[2]/(results[1] + results[2]),2)`$. So, if the sample actually consists of the sequence that we started with, we would estimate this to be the probability with which we get a positive test result.
 
-In order to be clear, though, we should really call this the *laboratory* specificity, because it takes into account only uncertainty associated with the way that we are sequencing: we are not taking into account additional uncertainties that might arise in the clinical setting.
+In order to be clear, though, we should really call this the *laboratory* sensitivity, because it takes into account only uncertainty associated with the way that we are sequencing: we are not taking into account additional uncertainties that might arise in the clinical setting.
 
 Finally, we could increase the accuracy of this estimate by using more than 1000 replications, at the cost of more computing time.
 
@@ -70,7 +69,7 @@ Let's read into memory the reference genome^[https://www.ncbi.nlm.nih.gov/nuccor
 
 ```{r}
 SeqLines <- readLines("http://www.stat.ucdavis.edu/~affarris/CovidRef.txt")
-CovSequence <- paste(SeqLines[-1], collapse="") # [-1] remove the first line of SeqLines
+CovSequence <- paste(SeqLines[-1], collapse="")# [-1] removes the first line of SeqLines
 ```
 
 This leaves us with the object \verb+CovSequence+ in R, which is a character string identifying the nucleotides in the virus' genome. We can find out how many nucleotides are recorded using \verb+nchar+:
@@ -106,12 +105,12 @@ results <- table(repl1000)
 results
 ```
 
-We would estimate that this test has a specificity of about $\frac{ `r results[2]` }{  `r results[1]` + `r results[2]` } \approx `r round(results[2]/(results[1] + results[2]),2)`$.
+We would estimate that this test has a sensitivity of about $\frac{ `r results[2]` }{  `r results[1]` + `r results[2]` } \approx `r round(results[2]/(results[1] + results[2]),2)`$.
 
-If we were to increase the number of reads in the test from twelve, we could obtain a test with higher specificity. What would happen if we used a different reference subsequence?
+If we were to increase the number of reads in the test from twelve, we could obtain a test with higher sensitivity. What would happen if we used a different reference subsequence?
 
 
-\hl{Estimate the specificity of a test for COVID-19 that uses as its reference subsequence the subsequence from nucleotide 27894 to 28259 of the genome.}^[this subsequence encodes an ORF8 protein for the virus] \hl{Use test sequences (reads) of length 3000, and for each test, use 12 random reads. Also use 1000 replications of the test, as before.}
+\hl{Estimate the sensitivity of a test for COVID-19 that uses as its reference subsequence the subsequence from nucleotide 27894 to 28259 of the genome.}^[this subsequence encodes an ORF8 protein for the virus] \hl{Use test sequences (reads) of length 3000, and for each test, use 12 random reads. Also use 1000 replications of the test, as before.}
 
 
 
