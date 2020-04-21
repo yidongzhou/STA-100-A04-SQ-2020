@@ -1,12 +1,19 @@
 ---
-title: Lab Assignment 2
-author: STA 100 | A. Farris | Spring 2020
-abstract: \emph{A pdf copy of your assignment is due at the end of the day (11:59pm PT) Monday, April 27. Submission of the pdf will be through Canvas. Please put in the effort to make it look reasonably professional -- you're encouraged to use R Markdown. Note that specific tasks for you are \hl{highlighted}. You are free to work in groups, but you must submit your own writeup, and run your own code.}
-header-includes:
-   - \usepackage{enumerate,verbatim,graphicx,soul}
-   - \renewcommand{\abstractname}{}
+title: "Lab Assignment 2"
+author: "STA 100 | A. Farris | Spring 2020"
 geometry: margin=0.75in
-output: pdf_document
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+header-includes:
+- \usepackage{enumerate,verbatim,graphicx,soul}
+- \renewcommand{\abstractname}{}
+abstract: \emph{A pdf copy of your assignment is due at the end of the day (11:59pm
+  PT) Monday, April 27. Submission of the pdf will be through Canvas. Please put in
+  the effort to make it look reasonably professional -- you're encouraged to use R
+  Markdown. Note that specific tasks for you are \hl{highlighted}. You are free to
+  work in groups, but you must submit your own writeup, and run your own code.}
 ---
 
 ## Introduction to random sampling with sequencing
@@ -63,7 +70,7 @@ Let's read into memory the reference genome^[https://www.ncbi.nlm.nih.gov/nuccor
 
 ```{r}
 SeqLines <- readLines("http://www.stat.ucdavis.edu/~affarris/CovidRef.txt")
-CovSequence <- paste(SeqLines[-1], collapse="")
+CovSequence <- paste(SeqLines[-1], collapse="") # [-1] remove the first line of SeqLines
 ```
 
 This leaves us with the object \verb+CovSequence+ in R, which is a character string identifying the nucleotides in the virus' genome. We can find out how many nucleotides are recorded using \verb+nchar+:
