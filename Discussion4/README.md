@@ -9,6 +9,10 @@
 
 The example included shows how to estimate the sensitivity of a test that samples a genome a specified number of times, looking for the subsequence between some specified base pair locations. All you really have to do for lab assignment 2 is to **change the begin and end numbers of this subsequence to the ones that you're asked to, and then to run the code again**.
 
+## How to define your own function in R
+
+https://swcarpentry.github.io/r-novice-inflammation/02-func-R/
+
 ## Some functions need to know:
 
 1. nchar: https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/nchar
