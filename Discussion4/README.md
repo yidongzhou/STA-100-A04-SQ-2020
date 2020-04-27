@@ -13,7 +13,7 @@ The example included shows how to estimate the sensitivity of a test that sample
 
 https://swcarpentry.github.io/r-novice-inflammation/02-func-R/
 
-## Some functions need to know:
+## Several functions need to know:
 
 1. nchar: https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/nchar
 2. substr: https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/substr
