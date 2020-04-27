@@ -1,0 +1,88 @@
+---
+title: "Lab Assignment 2"
+author: "Yidong Zhou"
+geometry: margin=0.75in
+output:
+  html_document:
+    df_print: paged
+header-includes:
+- \usepackage{enumerate,verbatim,graphicx,soul}
+- \renewcommand{\abstractname}{}
+---
+
+```{r}
+CheckOnce <- function(FullSequence,TestRef,readLength){
+        # Randomly sample a location on the genome to read
+        RandomIndex <- sample(1:(nchar(FullSequence) - readLength + 1),1)
+        RandomSnippet <- substr(FullSequence, RandomIndex, RandomIndex + readLength - 1)
+        # Check to see if it contains the ref. string
+        grepl(TestRef,RandomSnippet) 
+} 
+Test <- function(FullSequence,TestRef,readLength,numReps){
+        # Repeat the test numReps times;
+        # if any find the reference, return +
+        Reps <- replicate(numReps,CheckOnce(FullSequence,TestRef,readLength)) 
+        ifelse(any(Reps),"+","-")
+}
+```
+
+## A test for COVID-19
+
+Let's read into memory the reference genome^[https://www.ncbi.nlm.nih.gov/nuccore/MN908947.3] for the virus causing COVID-19:
+
+```{r}
+SeqLines <- readLines("http://www.stat.ucdavis.edu/~affarris/CovidRef.txt")
+CovSequence <- paste(SeqLines[-1], collapse="")# [-1] removes the first line of SeqLines
+```
+
+This leaves us with the object \verb+CovSequence+ in R, which is a character string identifying the nucleotides in the virus' genome. We can find out how many nucleotides are recorded using \verb+nchar+:
+
+```{r,comment=NULL}
+nchar(CovSequence)
+```
+
+So in this case the reference genome has `r nchar(CovSequence)` nucleotides. We can look at small snippets of the sequence by using \verb+substr+, for example to look at the first through the fiftieth nucleotides:
+
+```{r,comment=NULL}
+substr(CovSequence,1,50)
+```
+
+or we could look at the 20,000th through the 20,030th:
+
+```{r,comment=NULL}
+substr(CovSequence,20000,20030)
+```
+
+Now let's create a hypothetical test. For our reference subsequence, let's use the subsequence from nucleotide 27202 to 27387 of the genome^[this subsequence encodes an ORF6 protein for the virus]:
+
+```{r}
+RefSubseq <- substr(CovSequence,28345,30234)
+```
+
+For our test subsequences, let's use test sequences (reads) of length 3000. Finally, for each test, let's use 12 random reads.
+
+
+```{r,comment=NULL}
+repl1000 <- replicate(1000,Test(CovSequence,RefSubseq,3000,12))
+results <- table(repl1000)
+results
+```
+
+We would estimate that this test has a sensitivity of about $\frac{ `r results[2]` }{  `r results[1]` + `r results[2]` } \approx `r round(results[2]/(results[1] + results[2]),2)`$.
+
+If we were to increase the number of reads in the test from twelve, we could obtain a test with higher sensitivity. What would happen if we used a different reference subsequence?
+
+
+\hl{Estimate the sensitivity of a test for COVID-19 that uses as its reference subsequence the subsequence from nucleotide 27894 to 28259 of the genome.}^[this subsequence encodes an ORF8 protein for the virus] \hl{Use test sequences (reads) of length 3000, and for each test, use 12 random reads. Also use 1000 replications of the test, as before.}
+
+
+
+\clearpage
+
+
+\subsection*{Appendix: R Script}
+
+```{r, ref.label=knitr::all_labels(),echo=TRUE,eval=FALSE}
+```
+
+
