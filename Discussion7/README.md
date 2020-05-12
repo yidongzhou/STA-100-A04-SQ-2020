@@ -7,4 +7,6 @@
 
 ### 2. Program the calculation according to the formula
 
-Follow the steps in `LabAssignment5.pdf`
+- Follow the steps in `LabAssignment5.pdf`.
+
+**Note: for lab assignment 5, you'd better program by yourself rather than use `chisq.test()` function.**
