@@ -1,0 +1,144 @@
+---
+title: Lab Assignment 5
+author: STA 100 | A. Farris | Spring 2020
+abstract: \emph{A pdf copy of your assignment is due at the end of the day (11:59pm PT) Monday, May 18. Submission of the pdf will be through Canvas. Please put in the effort to make it look reasonably professional -- you're encouraged to use R Markdown. Note that specific tasks for you are \hl{highlighted}. You are free to work in groups, but you must submit your own writeup, and run your own code.}
+header-includes:
+   - \usepackage{enumerate,verbatim,graphicx,soul}
+   - \renewcommand{\abstractname}{}
+geometry: margin=0.75in
+output: pdf_document
+---
+\section*{Goodness-of-fit for Mendelian inheritance}
+
+It is hardly necessary here to motivate the importance of Mendelian notions of inheritance in the history of Biology.[^1]. 
+
+[^1]: Mendel, Gregor. 1866. Versuche über Plflanzen-hybriden.
+Verhandlungen des naturforschenden Ver-eines in Brünn,
+Bd. IV für das Jahr 1865, Abhand-lungen, 3–47. http://www.esp.org/foundations/genetics/classical/gm-65.pdf
+
+Chi-squared tests of goodness-of-fit are a natural tool for evaluating claims of the kind inherent in Mendelian inheritance. Mendel reported his results in 1865; our tests for goodness-of-fit were not developed by Karl Pearson until 1900. Thus, these tools were not available to Mendel himself. Nonetheless, they were applied for these purposes very shortly after the development of the tests[^2]. 
+
+[^2]: Harris, J. Arthur. 1912. A Simple Test of the Goodness of Fit of Mendelian Ratios.
+The American Naturalist, Vol. 46, No. 552 (Dec., 1912), pp. 741-745
+https://www.jstor.org/stable/2456130
+
+It is therefore of historical interest for us to evaluate several claims of Mendel's, on the basis of his own reported experimental results.
+
+\subsection*{Experiment 1}
+
+
+In his first experiment, Mendel differentiated his pea plants by two characteristics, 'form' and 'albumen'. Form here could be round (A) or wrinkled (a), and albumen could be yellow (B) or green (b). Thus, each plant can be categorized according to whether it displays one or the other of each of these characteristics, or according to whether it shows a mix of these characteristics as a hybrid. For example, then, 'AB' would characterize peas that are yellow and round, and 'AaB' would characterize peas with a mix of round yellow and wrinkled yellow types. 
+
+In Figure \ref{fig:expt1} we find a table of Mendel's results, counting the number of plants obtained in one generation of each type.[^3]
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.5\textwidth]{MendelFigure1.png}
+\caption{Mendel's observed counts for Experiment 1}
+\label{fig:expt1}
+\end{figure}
+
+
+
+[^3]: https://library.si.edu/digital-library/book/versucheberpflan00mend
+
+
+For these categories Mendel hypothesized the following ratios:
+
+```{r, echo=FALSE}
+library(pander)
+Category <- c("AB","Ab","aB","ab","ABb","aBb","AaB","Aab","AbBb")
+NullRatio <- c(1,1,1,1,2,2,2,2,4)
+ATable <- rbind(Category,NullRatio)
+pander(ATable, caption="Relative ratios under the Null hypothesis")
+```
+
+Thus he proposed that the population proportion for AaBb should be four times that of Ab, the proportion of AB should be half that of ABb, etc. Our Null hypothesis is that this claim is correct.
+
+
+```{r, echo=FALSE}
+NullProportion <- NullRatio/sum(NullRatio) # converting ratios to proportions
+Observed <- c(38,35,28,30,65,68,60,67,138) # from Mendel's table
+Expected <-sum(Observed)*NullProportion # converting proportions to Expected counts
+Discrepancy <- (Expected-Observed)^2/Expected
+TestStat <- sum(Discrepancy) # chi-squared test statistic
+p_value <- 1-pchisq(TestStat,9-1) # don't forget the degrees of freedom!
+```
+
+
+
+```{r, echo=FALSE}
+#library(pander) # may need to install package 'pander' to make the table below
+ATable <- rbind(NullProportion,Expected,Observed,Discrepancy)
+pander(ATable,
+      col.names=Category, 
+      digits=3,
+      caption="Observed vs. Expected values for Experiment 1")
+```
+
+From Table 2 above, we find that the peas in categories AB (round and yellow), aB (wrinkled and yellow), and AaB (yellow and both round and wrinkled) stand out somewhat in terms of their discrepancies between values observed in the sample and those expected under the Null hypothesis.
+
+Under the Null hypothesis, the sum of these discrepancies has an approximate $\chi^2$ distribution with 8 degrees of freedom. From this, we calculate a p-value of `r round(p_value,3)`, suggesting a lack of evidence against the Null hypothesis, that the true population ratios are as Mendel posited; so, these discrepancies are together not sufficiently large to rule out the possibility that they are merely due to chance.
+
+
+\subsection*{Experiment 2}
+
+
+In his second experiment, Mendel differentiated his pea plants by three characteristics, 'form', 'albumen', and 'seed-coat'. Form here could be round (A) or wrinkled (a), albumen yellow (B) or green (b), and seed-coat grey-brown (C) or white (c). Thus, each plant can be categorized according to whether it displays one or the other of each of these characteristics, or according to whether it shows a mix of these characteristics as a hybrid. For example, then, 'ABC' would characterize peas that are yellow and round with grey-brown seed coat, and 'AaBc' would characterize peas having a mix of round yellow with white seed-coat and wrinkled yellow with white seed-coat types. 
+
+For this experiment, Mendel proposed the relative ratios of plants in the Table below.
+
+
+\pagebreak
+
+```{r,echo=FALSE}
+library(pander)
+Category <- c("ABC","ABc","AbC","Abc",
+              "aBC","aBc","abC","abc",
+              "ABCc","AbCc","aBCc","abCc",
+              "ABbC","ABbc","aBbC","aBbc",
+              "AaBC","AaBc","AabC","Aabc",
+              "ABbCc","aBbCc",
+              "AaBCc","AabCc",
+              "AaBbC","AaBbc",
+              "AbBbCc")
+NullRatio <- c(1, 1, 1, 1,
+               1, 1, 1, 1, 
+               2, 2, 2, 2, 
+               2, 2, 2, 2, 
+               2, 2, 2, 2, 
+               4, 4, 
+               4, 4, 
+               4, 4, 
+               8)
+ATable <- rbind(Category,NullRatio)
+panderOptions('table.continues', '')
+pander(ATable, caption="Relative ratios under the Mendel's proposal")
+```
+
+
+Figure \ref{fig:expt2} below displays Mendel's claimed relative ratios for Experiment 2.
+
+
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.7\textwidth]{MendelFigure2.png}
+\caption{Mendel's observed counts for Experiment 2}
+\label{fig:expt2}
+\end{figure}
+
+
+
+
+\hl{Evaluate Mendel's claim on the basis of the observed counts in Figure 2, using significance level 0.1 . To do so, first report a table of observed values, expected values, and discrepancies between them. Which categories appear most discrepant? What is the Null distribution for the test statistic here (including its degrees of freedom)? Would you reject the null hypothesis here, or fail to do so?}
+
+
+
+\hrulefill
+
+\clearpage
+\begin{center} Appendix: R Script \end{center}
+
+```{r, ref.label=knitr::all_labels(),echo=TRUE,eval=FALSE}
+```
