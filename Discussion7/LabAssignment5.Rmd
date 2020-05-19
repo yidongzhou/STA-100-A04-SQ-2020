@@ -14,7 +14,7 @@ It is hardly necessary here to motivate the importance of Mendelian notions of i
 
 [^1]: Mendel, Gregor. 1866. Versuche über Plflanzen-hybriden.
 Verhandlungen des naturforschenden Ver-eines in Brünn,
-Bd. IV für das Jahr 1865, Abhand-lungen, 3–47. http://www.esp.org/foundations/genetics/classical/gm-65.pdf
+Bd. IV für das Jahr 1865, Abhand-lungen, 3�?47. http://www.esp.org/foundations/genetics/classical/gm-65.pdf
 
 Chi-squared tests of goodness-of-fit are a natural tool for evaluating claims of the kind inherent in Mendelian inheritance. Mendel reported his results in 1865; our tests for goodness-of-fit were not developed by Karl Pearson until 1900. Thus, these tools were not available to Mendel himself. Nonetheless, they were applied for these purposes very shortly after the development of the tests[^2]. 
 
@@ -37,7 +37,6 @@ In Figure \ref{fig:expt1} we find a table of Mendel's results, counting the numb
 \caption{Mendel's observed counts for Experiment 1}
 \label{fig:expt1}
 \end{figure}
-
 
 
 [^3]: https://library.si.edu/digital-library/book/versucheberpflan00mend
