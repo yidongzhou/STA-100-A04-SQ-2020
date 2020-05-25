@@ -1,0 +1,14 @@
+Dataset: infarct1.dat
+
+Source: P. Schlattman and U. Dirnagl (2010). "Statistics in Experimental 
+Cerebrovascular Research: Comparison of More then Two Groups with a 
+Continuous Outcome Variable," Journal of Cerebral Blood Flow & Metabolism,
+Vol. 30, pp. 1558-1563
+
+Description: Infarct volumes measured histologically after experimental
+cerebral artery occlusion in the mouse. Treatments: Vehicle (Control),
+Compound X, Compound Y.
+
+Variables/Columns
+Treatment   8  /* 1=Vehicle, 2=Compound X, 3=Compound Y */
+Infarct Volume    10-16
