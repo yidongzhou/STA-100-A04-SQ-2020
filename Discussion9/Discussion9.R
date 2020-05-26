@@ -10,3 +10,18 @@ kable(anova(FittedGroupMeans),digits=14)
 TukeysProcedure <- TukeyHSD(FittedGroupMeans)
 TukeysProcedure
 plot(TukeysProcedure)
+
+# another example
+infarct <- read.table(
+  "http://users.stat.ufl.edu/~winner/data/infarct1.dat")
+colnames(infarct) <- c('Treatment', 'Infarct')
+infarct$Treatment <- as.factor(infarct$Treatment)
+boxplot(Infarct ~ Treatment, infarct,
+        frame.plot=FALSE,
+        col="lightgreen")
+options(knitr.kable.NA = '')
+FittedGroupMeans <- aov(Infarct ~ Treatment, data=infarct)
+kable(anova(FittedGroupMeans),digits=14)
+TukeysProcedure <- TukeyHSD(FittedGroupMeans)
+TukeysProcedure
+plot(TukeysProcedure)
