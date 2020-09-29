@@ -21,7 +21,7 @@ boxplot(Infarct ~ Treatment, infarct,
         col="lightgreen")
 options(knitr.kable.NA = '')
 FittedGroupMeans <- aov(Infarct ~ Treatment, data=infarct)
-kable(anova(FittedGroupMeans),digits=14)
+kable(anova(FittedGroupMeans), digits=14)
 TukeysProcedure <- TukeyHSD(FittedGroupMeans)
 TukeysProcedure
 plot(TukeysProcedure)
